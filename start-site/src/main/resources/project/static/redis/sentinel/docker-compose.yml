@@ -1,0 +1,99 @@
+services:
+  redis_master:
+    image: docker.artifactory.tapsi.tech/bitnami/redis:7.4
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+      - REDIS_PASSWORD=123456
+      - REDIS_MASTER_PASSWORD=123456
+    networks:
+      - redis-net
+
+  redis_replica1:
+    image: docker.artifactory.tapsi.tech/bitnami/redis:7.4
+    ports:
+      - "6380:6379"
+    environment:
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis_master
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_PASSWORD=123456
+      - REDIS_PASSWORD=123456
+    networks:
+      - redis-net
+    depends_on:
+      - redis_master
+
+  redis_replica2:
+    image: docker.artifactory.tapsi.tech/bitnami/redis:7.4
+    ports:
+      - "6381:6379"
+    environment:
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis_master
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_PASSWORD=123456
+      - REDIS_PASSWORD=123456
+    networks:
+      - redis-net
+    depends_on:
+      - redis_master
+  redis_sentinel1:
+    image: docker.artifactory.tapsi.tech/bitnami/redis-sentinel:7.4
+    ports:
+      - "26379:26379"
+    environment:
+      - REDIS_MASTER_HOST=localhost
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_PASSWORD=123456
+      - REDIS_SENTINEL_QUORUM=2
+      - REDIS_SENTINEL_PORT_NUMBER=26379
+      - REDIS_SENTINEL_ANNOUNCE_IP=127.24.0.4
+      - REDIS_SENTINEL_ANNOUNCE_PORT=26379
+    networks:
+      - redis-net
+    depends_on:
+      - redis_master
+      - redis_replica1
+      - redis_replica2
+  redis_sentinel2:
+    image: docker.artifactory.tapsi.tech/bitnami/redis-sentinel:7.4
+    ports:
+      - "26380:26380"
+    environment:
+      - REDIS_MASTER_HOST=localhost
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_PASSWORD=123456
+      - REDIS_SENTINEL_QUORUM=2
+      - REDIS_SENTINEL_PORT_NUMBER=26380
+      - REDIS_SENTINEL_ANNOUNCE_IP=127.24.0.2
+      - REDIS_SENTINEL_ANNOUNCE_PORT=26380
+    networks:
+      - redis-net
+    depends_on:
+      - redis_master
+      - redis_replica1
+      - redis_replica2
+  redis_sentinel3:
+    image: docker.artifactory.tapsi.tech/bitnami/redis-sentinel:7.4
+    ports:
+      - "26381:26381"
+    environment:
+      - REDIS_MASTER_HOST=localhost
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_PASSWORD=123456
+      - REDIS_SENTINEL_QUORUM=2
+      - REDIS_SENTINEL_PORT_NUMBER=26381
+      - REDIS_SENTINEL_ANNOUNCE_IP=127.24.0.3
+      - REDIS_SENTINEL_ANNOUNCE_PORT=26381
+    networks:
+      - redis-net
+    depends_on:
+      - redis_master
+      - redis_replica1
+      - redis_replica2
+
+networks:
+  redis-net:
+    driver: bridge

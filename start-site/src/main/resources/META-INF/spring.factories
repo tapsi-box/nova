@@ -64,5 +64,5 @@ io.spring.start.site.extension.dependency.tapsibox.fixture.FixtureProjectGenerat
 io.spring.start.site.extension.description.DescriptionProjectGenerationConfiguration,\
 io.spring.start.site.extension.properties.ApplicationPropertiesProjectGenerationConfiguration,\
 io.spring.start.site.extension.properties.GradlePropertiesProjectGenerationConfiguration,\
-io.spring.start.site.extension.configuration.TapsiBoxConfigProjectGenerationConfiguration.\
+io.spring.start.site.extension.configuration.TapsiBoxConfigProjectGenerationConfiguration,\
 io.spring.start.site.extension.resources.locale.LocalizationProjectGenerationConfiguration
