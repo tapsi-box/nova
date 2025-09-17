@@ -16,30 +16,25 @@
 
 package io.spring.start.site.extension.properties;
 
-import io.spring.initializr.generator.project.ProjectDescription;
+import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
+import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@link ProjectGenerationConfiguration} for customizations relevant to the application
+ * {@link ProjectGenerationConfiguration} for customizations relevant to the gradle
  * properties.
  *
- * @author Moritz Halbritter
  * @author Shahryar Safizadeh
  */
 @ProjectGenerationConfiguration
-class ApplicationPropertiesProjectGenerationConfiguration {
+@ConditionalOnBuildSystem(GradleBuildSystem.ID)
+public class GradlePropertiesProjectGenerationConfiguration {
 
 	@Bean
-	DefaultApplicationPropertiesCustomizer defaultApplicationPropertiesContributorCustomizer(
-			ProjectDescription projectDescription) {
-		return new DefaultApplicationPropertiesCustomizer(projectDescription);
-	}
-
-	@Bean
-	ProfilesApplicationPropertiesContributor profilesContributor() {
-		return new ProfilesApplicationPropertiesContributor();
+	GradlePropertiesProjectContributor gradlePropertiesProjectContributor() {
+		return new GradlePropertiesProjectContributor();
 	}
 
 }
