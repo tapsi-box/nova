@@ -18,6 +18,7 @@ package io.spring.start.site.extension.code.kotlin;
 
 import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.condition.ConditionalOnLanguage;
+import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.language.kotlin.KotlinLanguage;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -37,6 +38,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Stephane Nicoll
  * @author Eddú Meléndez
+ * @author Shahryar Safizadeh
  */
 @ProjectGenerationConfiguration
 @ConditionalOnLanguage(KotlinLanguage.ID)
@@ -53,6 +55,24 @@ class KotlinProjectGenerationConfiguration {
 	ReactorKotlinExtensionsCustomizer reactorKotlinExtensionsCustomizer(InitializrMetadata metadata,
 			ProjectDescription description) {
 		return new ReactorKotlinExtensionsCustomizer(metadata, description);
+	}
+
+	@Bean
+	JacksonKotlinExtensionsCustomizer jacksonKotlinExtensionsCustomizer(InitializrMetadata metadata,
+			ProjectDescription description) {
+		return new JacksonKotlinExtensionsCustomizer(metadata, description);
+	}
+
+	@Bean
+	TapsiBoxKotlinProjectStructureContributor tapsiBoxKotlinProjectStructureContributor(
+			ProjectDescription description) {
+		return new TapsiBoxKotlinProjectStructureContributor(description);
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("konsist")
+	KonsistTestProjectStructureContributor konsistTestProjectStructureContributor(ProjectDescription description) {
+		return new KonsistTestProjectStructureContributor(description);
 	}
 
 	@Configuration
