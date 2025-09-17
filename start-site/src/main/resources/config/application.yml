@@ -1,0 +1,217 @@
+tapsibox:
+  initializr:
+    env:
+      boms:
+        mongock:
+          groupId: io.mongock
+          artifactId: mongock-bom
+          versionProperty: mongock.version
+          mappings:
+            - compatibilityRange: "[3.0.0,4.0.0-M1)"
+              version: 5.5.1
+
+    dependencies:
+      - name: Tapsi Box
+        content:
+            - name: Logging
+              id: tapsi-logging
+              groupId: cab.tapsi.libs.loggingstarter
+              artifactId: tapsi-logging-starter
+              version: 3.0.0
+              description: High-performance, extensible Spring Boot logging library (Logback) with JSON output, sensitive-data masking, asynchronous logging, MDC propagation, and seamless Spring integration.
+
+            - name: Kafka Producer
+              id: tapsi-kafka-producer
+              groupId: cab.tapsi.libs.kafka
+              artifactId: kafka-producer-starter
+              version: 3.3.0
+              description: Configured Kafka producer for Tapsi's event bus.
+              facets:
+                - reactive
+
+            - name: Reactor Retry
+              id: tapsi-reactor-retry
+              groupId: io.github.mahdibohloul
+              artifactId: projectreactor-retry-aop
+              version: 2.0.0-RC2
+              description: AOP-based retry mechanism for Project Reactor streams.
+              facets:
+                - reactive
+
+            - name: kPring MediatR
+              id: tapsi-kpring-mediatr
+              groupId: io.github.mahdibohloul
+              artifactId: kpring-mediatr-starter
+              version: 2.0.1
+              description: MediatR pattern implementation for Spring.
+
+            - name: Localization
+              id: tapsi-localization
+              groupId: cab.tapsi.libs
+              artifactId: localization-spring-boot-starter
+              version: 0.0.2
+              description: Localization support for Tapsi services.
+
+            - name: Map Zones
+              id: tapsi-mapzones
+              groupId: cab.tapsi.libs.map-zones
+              artifactId: tapsi-mapzones
+              version: 3.0.0
+              description: Spring Boot integration for Tapsi Map Zones library.
+
+            - name: Metrics
+              id: tapsi-metrics
+              groupId: box.tapsi.libs
+              artifactId: metrics-core
+              version: 1.0.2
+              description: A reactive observability library for Spring Boot applications that provides comprehensive metrics collection and monitoring capabilities.
+              facets:
+                - reactive
+
+            - name: Utilities
+              id: tapsi-utilities
+              groupId: box.tapsi.libs
+              artifactId: utilities-starter
+              version: 0.9.1
+              description: Comprehensive Kotlin utilities library providing essential extensions, security services, reactive utilities, and formatting tools for Spring Boot applications.
+              facets:
+                - reactive
+
+            - name: Scheduler
+              id: tapsi-scheduler
+              groupId: box.tapsi.libs
+              artifactId: scheduler-starter
+              version: 0.9.0
+              description: Reactive job scheduling library built on Quartz with Reactor integration, providing cron-based scheduling, retry mechanisms, and monitoring for Spring Boot applications.
+
+      - name: Developer Tools Extensions
+        content:
+          - name: Spring AOP
+            id: aop
+            description: Support for aspect-oriented programming (AOP) with Spring AOP and AspectJ.
+            groupId: org.springframework.boot
+            artifactId: spring-boot-starter-aop
+            starter: true
+
+      - name: Web Extensions
+        content:
+          - name: Reactor Extra
+            id: reactor-extra
+            groupId: io.projectreactor.addons
+            artifactId: reactor-extra
+            description: Provides extra operators for Project Reactor, like Retry, Repeat, and more.
+            facets:
+              - reactive
+
+      - name: I/O Extensions
+        content:
+          - name: Caffeine Cache
+            id: caffeine
+            groupId: com.github.ben-manes.caffeine
+            artifactId: caffeine
+            description: High-performance, near-optimal caching library for Java with automatic eviction, expiration, and refresh capabilities.
+
+          - name: Protobuf Util
+            id: protobuf-util
+            groupId: com.google.protobuf
+            artifactId: protobuf-java-util
+            version: 3.25.5
+            description: Build high-performance, cross-platform RPC services with Spring Boot using gRPC and Protocol Buffers.
+
+      - name: Web Extensions
+        content:
+          - name: GSON
+            id: gson
+            groupId: com.google.code.gson
+            artifactId: gson
+            description: Google's library to convert Java Objects into their JSON representation and vice versa.
+
+      - name: NoSQL Extensions
+        content:
+          - name: Mongock Spring Boot
+            id: mongock
+            groupId: io.mongock
+            artifactId: mongock-springboot-v3
+            description: Database migration and versioning tool for MongoDB, providing change tracking and rollback capabilities for Spring Boot applications.
+            bom: mongock
+            starter: false
+
+          - name: Redisson
+            id: redisson
+            groupId: org.redisson
+            artifactId: redisson-spring-boot-starter
+            description: Redis Java client with distributed data structures, locks, and services for building scalable Spring Boot applications.
+            version: 3.50.0
+            starter: false
+
+      - name: Testing Extensions
+        content:
+          - name: Fixture
+            id: fixture
+            groupId: com.appmattus.fixture
+            artifactId: fixture
+            description: Generates random test data for Kotlin/Java objects, making it easy to create fixtures for unit and integration tests.
+            version: 1.2.0
+            scope: compile
+
+          - name: Konsist
+            id: konsist
+            groupId: com.lemonappdev
+            artifactId: konsist
+            description: A Kotlin library for static code analysis and validation of Kotlin projects, ensuring code quality and consistency through architecture rules.
+            version: 0.17.3
+            scope: compile
+
+      - name: Security Extensions
+        content:
+          - name: JJWT
+            id: jjwt
+            groupId: io.jsonwebtoken
+            artifactId: jjwt-impl
+            description: Java JWT library for creating, parsing, and validating JSON Web Tokens with support for JWS and JWE standards.
+            version: 0.12.5
+            scope: runtime
+
+initializr:
+  languages:
+    - name: Kotlin
+      id: kotlin
+      default: true
+
+  types:
+    - name: Gradle - Kotlin
+      id: gradle-project-kotlin
+      description: Generate a Gradle based project archive using the Kotlin DSL.
+      tags:
+        build: gradle
+        dialect: kotlin
+        format: project
+      default: true
+      action: /starter.zip
+    - name: Gradle Config
+      id: gradle-build
+      description: Generate a Gradle build file.
+      tags:
+        build: gradle
+        format: build
+      default: false
+      action: /build.gradle
+
+  javaVersions:
+    - id: 24
+      default: false
+    - id: 21
+      default: true
+    - id: 17
+      default: true
+
+  group-id:
+    value: box.tapsi
+  artifact-id:
+    value: nova
+  name:
+    value: nova
+  description:
+    value: Tapsi Box generated project by Nova
+  package-name:
+    value: box.tapsi.nova

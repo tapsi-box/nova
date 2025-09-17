@@ -48,7 +48,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @EnableAutoConfiguration
 @SpringBootConfiguration
-@Import(ProjectDescriptionCustomizerConfiguration.class)
+@Import({ ProjectDescriptionCustomizerConfiguration.class, TapsiBoxInitializrConfiguration.class })
 @EnableCaching
 @EnableAsync
 @EnableConfigurationProperties(StartConfigurationProperties.class)

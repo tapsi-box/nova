@@ -2079,9 +2079,12 @@ spring:
   devtools:
     restart:
       additional_paths:
-        - start-client/public/
+        - ../nova-client/public
       additional_exclude: "**/*.js,**/*.css,**/*.html"
   web:
     resources:
       static-locations:
-        - file:start-client/public/
+        - classpath:/META-INF/resources/
+        - classpath:/resources/
+        - classpath:/static/
+        - classpath:/public/
