@@ -17,6 +17,7 @@
 package io.spring.start.site.extension.build.gradle;
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
+import io.spring.initializr.generator.buildsystem.gradle.KotlinDslGradleBuildWriter;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
@@ -26,12 +27,15 @@ import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.versionresolver.MavenVersionResolver;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * {@link ProjectGenerationConfiguration} for generation of projects that depend on
  * Gradle.
  *
  * @author Stephane Nicoll
+ * @author Shahryar Safizadeh
  */
 @ProjectGenerationConfiguration
 @ConditionalOnBuildSystem(GradleBuildSystem.ID)
@@ -48,6 +52,36 @@ class GradleProjectGenerationConfiguration {
 		return new ManagedDependenciesDependencyManagementPluginVersionResolver(versionResolver,
 				(description) -> new InitializrDependencyManagementPluginVersionResolver(metadata)
 					.resolveDependencyManagementPluginVersion(description));
+	}
+
+	@Bean
+	TapsiBoxGradleBuildCustomizer tapsiBoxGradleBuildCustomizer() {
+		return new TapsiBoxGradleBuildCustomizer();
+	}
+
+	@Bean
+	TapsiBoxSettingsGradleCustomizer tapsiBoxSettingsGradleCustomizer() {
+		return new TapsiBoxSettingsGradleCustomizer();
+	}
+
+	/**
+	 * Configuration specific to projects using Gradle (Kotlin DSL).
+	 */
+	@Configuration
+	@ConditionalOnBuildSystem(id = GradleBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
+	static class TapsiBoxGradleKtsProjectGenerationConfiguration {
+
+		@Bean
+		@Primary
+		KotlinDslGradleBuildWriter tapsiBoxGradleBuildWriter() {
+			return new TapsiBoxKotlinDslGradleBuildWriter();
+		}
+
+		@Bean
+		TapsiBoxSettingsGradleProjectContributor tapsiBoxSettingsGradleProjectContributor() {
+			return new TapsiBoxSettingsGradleProjectContributor();
+		}
+
 	}
 
 }
