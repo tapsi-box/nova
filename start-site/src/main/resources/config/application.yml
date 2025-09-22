@@ -10,6 +10,11 @@ tapsibox:
             - compatibilityRange: "[3.0.0,4.0.0-M1)"
               version: 5.5.1
 
+        tapsi-box:
+          groupId: box.tapsi.libs
+          artifactId: tapsi-box-bom
+          version: 1.0.0-RC2
+
     dependencies:
       - name: Tapsi Box
         content:
@@ -17,14 +22,14 @@ tapsibox:
               id: tapsi-logging
               groupId: cab.tapsi.libs.loggingstarter
               artifactId: tapsi-logging-starter
-              version: 3.0.0
+              bom: tapsi-box
               description: High-performance, extensible Spring Boot logging library (Logback) with JSON output, sensitive-data masking, asynchronous logging, MDC propagation, and seamless Spring integration.
 
             - name: Kafka Producer
               id: tapsi-kafka-producer
               groupId: cab.tapsi.libs.kafka
               artifactId: kafka-producer-starter
-              version: 3.3.0
+              bom: tapsi-box
               description: Configured Kafka producer for Tapsi's event bus.
               facets:
                 - reactive
@@ -33,7 +38,7 @@ tapsibox:
               id: tapsi-reactor-retry
               groupId: io.github.mahdibohloul
               artifactId: projectreactor-retry-aop
-              version: 2.0.0-RC2
+              bom: tapsi-box
               description: AOP-based retry mechanism for Project Reactor streams.
               facets:
                 - reactive
@@ -42,28 +47,28 @@ tapsibox:
               id: tapsi-kpring-mediatr
               groupId: io.github.mahdibohloul
               artifactId: kpring-mediatr-starter
-              version: 2.0.1
-              description: MediatR pattern implementation for Spring.
+              bom: tapsi-box
+              description: A powerful implementation of the Mediator Pattern for the JVM, built with Kotlin and native coroutine support for the Spring Framework.
 
             - name: Localization
               id: tapsi-localization
               groupId: cab.tapsi.libs
               artifactId: localization-spring-boot-starter
-              version: 0.0.2
+              bom: tapsi-box
               description: Localization support for Tapsi services.
 
             - name: Map Zones
               id: tapsi-mapzones
               groupId: cab.tapsi.libs.map-zones
               artifactId: tapsi-mapzones
-              version: 3.0.0
+              bom: tapsi-box
               description: Spring Boot integration for Tapsi Map Zones library.
 
             - name: Metrics
               id: tapsi-metrics
               groupId: box.tapsi.libs
               artifactId: metrics-core
-              version: 1.0.2
+              bom: tapsi-box
               description: A reactive observability library for Spring Boot applications that provides comprehensive metrics collection and monitoring capabilities.
               facets:
                 - reactive
@@ -72,7 +77,7 @@ tapsibox:
               id: tapsi-utilities
               groupId: box.tapsi.libs
               artifactId: utilities-starter
-              version: 0.9.1
+              bom: tapsi-box
               description: Comprehensive Kotlin utilities library providing essential extensions, security services, reactive utilities, and formatting tools for Spring Boot applications.
               facets:
                 - reactive
@@ -81,7 +86,7 @@ tapsibox:
               id: tapsi-scheduler
               groupId: box.tapsi.libs
               artifactId: scheduler-starter
-              version: 0.9.0
+              bom: tapsi-box
               description: Reactive job scheduling library built on Quartz with Reactor integration, providing cron-based scheduling, retry mechanisms, and monitoring for Spring Boot applications.
 
       - name: Developer Tools Extensions
