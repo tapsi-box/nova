@@ -61,6 +61,7 @@ io.spring.start.site.extension.dependency.tapsibox.libs.scheduler.TapsiBoxSchedu
 io.spring.start.site.extension.dependency.tapsibox.mockito.MockitoKotlinProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.tapsibox.protobuf.ProtobufUtilProjectGenerationConfiguration,\
 io.spring.start.site.extension.dependency.tapsibox.fixture.FixtureProjectGenerationConfiguration,\
+io.spring.start.site.extension.dependency.tapsibox.convention.TapsiBoxConventionProjectGenerationConfiguration,\
 io.spring.start.site.extension.description.DescriptionProjectGenerationConfiguration,\
 io.spring.start.site.extension.properties.ApplicationPropertiesProjectGenerationConfiguration,\
 io.spring.start.site.extension.properties.GradlePropertiesProjectGenerationConfiguration,\
