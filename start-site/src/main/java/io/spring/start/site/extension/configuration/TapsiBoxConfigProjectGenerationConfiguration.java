@@ -60,7 +60,7 @@ public class TapsiBoxConfigProjectGenerationConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnRequestedDependency("tapsi-kafka-producer")
+	@ConditionalOnRequestedDependency("tapsi-reactor-kafka")
 	KafkaStaticFilesContributor kafkaStaticFilesContributor() {
 		return new KafkaStaticFilesContributor();
 	}

@@ -13,7 +13,7 @@ tapsibox:
         tapsi-box:
           groupId: box.tapsi.libs
           artifactId: tapsi-box-bom
-          version: 1.0.0-RC2
+          version: 1.0.0
 
     dependencies:
       - name: Tapsi Box
@@ -25,12 +25,12 @@ tapsibox:
               bom: tapsi-box
               description: High-performance, extensible Spring Boot logging library (Logback) with JSON output, sensitive-data masking, asynchronous logging, MDC propagation, and seamless Spring integration.
 
-            - name: Kafka Producer
-              id: tapsi-kafka-producer
-              groupId: cab.tapsi.libs.kafka
-              artifactId: kafka-producer-starter
+            - name: Spring Reactor Kafka
+              id: tapsi-reactor-kafka
+              groupId: io.github.mahdibohloul
+              artifactId: spring-reactor-kafka
               bom: tapsi-box
-              description: Configured Kafka producer for Tapsi's event bus.
+              description: A reactive, Spring Boot–friendly toolkit for building Kafka consumers and producers using Project Reactor.
               facets:
                 - reactive
 
